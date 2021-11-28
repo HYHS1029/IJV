@@ -34,7 +34,7 @@ smallref = postprocess.getReflectance(1.51, 1.51, 0.22, 18, small_data, small_co
 muap = np.array([0.1,  # skin
                 0.1,   # fat
                 0.05,  # muscle
-                0.5,   # IJV
+                0.2,   # IJV
                 0.3    # CCA
                 ])
 largerefp = postprocess.getReflectance(1.51, 1.51, 0.22, 18, large_data, large_config["PhotonNum"], muap)
@@ -55,13 +55,13 @@ largePathpArr = largemeanpathp.reshape(-1, 3, 3, 2).mean(axis=-1)
 #%%
 Imax = smallRefArr.mean(axis=1).mean(axis=0)
 Imin = largeRefArr.mean(axis=1).mean(axis=0)
-L = smallPathArr.mean(axis=1).mean(axis=0)- largePathArr.mean(axis=1).mean(axis=0)
+L = largePathArr.mean(axis=1).mean(axis=0)- smallPathArr.mean(axis=1).mean(axis=0)
 Ipmax = smallRefpArr.mean(axis=1).mean(axis=0)
 Ipmin = largeRefpArr.mean(axis=1).mean(axis=0)
-Lp = smallPathpArr.mean(axis=1).mean(axis=0)- largePathpArr.mean(axis=1).mean(axis=0)
+Lp = largePathpArr.mean(axis=1).mean(axis=0)- smallPathpArr.mean(axis=1).mean(axis=0)
 #%%
 real = np.log(Ipmin/Ipmax)- np.log(Imin/Imax)
-cal = ((mua[-2]*L)-(muap[-2]*Lp)+ mua[-3]*(Lp-L))
+cal = (((mua[-2])*L)-((muap[-2])*Lp)+ (mua[-3])*(Lp-L))
 
 print(real) ; print(cal)
 
@@ -83,3 +83,13 @@ print(largerefpcv); print(smallrefpcv)
 
 
 #%%
+mus = 119.7 ; musp = 119.7
+
+
+
+
+
+
+
+
+

@@ -40,6 +40,7 @@ muaIJV = np.linspace(0.2622, 0.7245, 5)
 muaSet = np.zeros([len(muaSkin)*len(muaFat)*len(muaMuscle)*len(muaIJV)])
 PathlengthSet = np.empty([len(muaSet), 19])
 
+index = 0
 for sessionId in ls[:1]:
     for skin in muaSkin:
         muaUsed[3] = skin       
@@ -52,6 +53,7 @@ for sessionId in ls[:1]:
                     # muaUsed[-3] = mu
                     muaSet[index] = muaUsed[-2]
                     PathlengthSet[index] = (postprocess.getMeanPathlength(sessionId, muaUsed)[1].mean(axis=0)[:, -3])
+                    index += 1
                 
     np.save(f"/home/md703/Desktop/pathlength/{sessionId}", PathlengthSet)
     
